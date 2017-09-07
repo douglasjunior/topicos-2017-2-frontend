@@ -4,8 +4,10 @@ import axios from 'axios';
 
 import {
     Table, Button,
-    Modal, ButtonGroup
+    Modal, ButtonGroup,
 } from 'react-bootstrap';
+
+import TodoForm from '../components/TodoForm';
 
 class TodoPage extends Component {
 
@@ -55,12 +57,31 @@ class TodoPage extends Component {
         return todosComponents;
     }
 
+    onNewTodoClick = () => {
+        this.setState({ showForm: true })
+    }
+
+    onFormClose = () => {
+        this.setState({ showForm: false })
+    }
+
+    onTodoSave = () => {
+        this.setState({ showForm: false })
+    }
+
     render() {
         const todos = this.state.todos;
+        const showForm = this.state.showForm;
 
         return (
             <section>
                 <h1>Página de Tarefas</h1>
+
+                <Button bsSize="small" bsStyle="success"
+                    onClick={this.onNewTodoClick}>
+                    Nova Tarefa
+                </Button>
+
                 <Table>
                     <thead>
                         <tr>
@@ -75,6 +96,9 @@ class TodoPage extends Component {
                         {this.renderTodo()}
                     </tbody>
                 </Table>
+
+                <TodoForm showForm={showForm} onClose={this.onFormClose}
+                    onSave={this.onTodoSave} />
             </section>
         );
     }
