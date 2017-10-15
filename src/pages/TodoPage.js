@@ -40,7 +40,7 @@ class TodoPage extends Component {
             const url = "http://localhost:3001/todos/" + todo.id;
             axios.delete(url)
                 .then((response) => {
-                    if (response.status === 200) {
+                    if (response.status === 204) {
                         return this.getTodos();
                     }
                 }).catch((ex) => {
