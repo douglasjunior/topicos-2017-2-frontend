@@ -38,7 +38,7 @@ class TodoForm extends Component {
     }
 
     render() {
-        const { showForm, onClose, onSave } = this.props;
+        const { showForm, onClose } = this.props;
 
         const { id, title, description } = this.state;
         return (

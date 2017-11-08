@@ -108,6 +108,23 @@ class TodoPage extends Component {
             })
     }
 
+    onConcluidaChange = (todoId, concluida) => {
+        let method;
+        if (concluida) {
+            method = axios.put;
+        } else {
+            method = axios.delete;
+        }
+        method(`http://localhost:3001/todos/${todoId}/completed`)
+            .then(response => {
+                if (response.status === 204) {
+                    return this.getTodos();
+                }
+            }).catch(ex => {
+                console.error(ex, ex.response);
+            });
+    }
+
     render() {
         const todos = this.state.todos;
 
@@ -122,7 +139,8 @@ class TodoPage extends Component {
 
                 <TodoTable todos={todos}
                     onEditarClick={this.onEditarClick}
-                    onExcluirClick={this.onExcluirClick} />
+                    onExcluirClick={this.onExcluirClick}
+                    onConcluidaChange={this.onConcluidaChange} />
 
                 <TodoForm showForm={this.state.showForm}
                     onClose={this.onFormClose}
